@@ -10,6 +10,8 @@ jobs:
     if: github.repository == 'stavenko/cargo-ws-version'
     runs-on: ubuntu-latest
     steps:
+      - name: Setup | Checkout sources
+        uses: actions/checkout@v2
       - name: Auto publish on version changed
         uses: seunlanlege/cargo-auto-publish@2 
         env: 
