@@ -10,9 +10,25 @@ jobs:
     if: github.repository == 'stavenko/cargo-ws-version'
     runs-on: ubuntu-latest
     steps:
+      - name: Setup | Rust
+        uses: ATiltedTree/setup-rust@v1
+        with:
+          rust-version: stable
+          components: clippy
       - name: Setup | Checkout sources
         uses: actions/checkout@v2
       - name: Auto publish on version changed
-        uses: seunlanlege/cargo-auto-publish@2 
+        run: |
+          cargo install tomlq
+          git checkout HEAD~1;
+          export PREV=`tomlq "package.version" -f Cargo.toml`;
+          git checkout HEAD;
+          export NEXT=`tomlq "package.version" -f Cargo.toml`;
+          echo "Version prev $PREV, version next $NEXT";
+          if [$NEXT != $PREV]
+          then
+            echo "publish package version changed";
+            cargo publish --token $CARGO_TOKEN
+          fi
         env: 
           CARGO_TOKEN: ${{ secrets.CARGO_TOKEN }}
