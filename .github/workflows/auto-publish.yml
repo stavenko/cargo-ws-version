@@ -27,7 +27,7 @@ jobs:
           git checkout HEAD;
           export NEXT=`tomlq "package.version" -f Cargo.toml`;
           echo "Version prev $PREV, version next $NEXT";
-          if [$NEXT != $PREV]
+          if [ "$NEXT" != "$PREV" ]
           then
             echo "publish package version changed";
             cargo publish --token $CARGO_TOKEN
