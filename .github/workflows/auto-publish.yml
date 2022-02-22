@@ -1,0 +1,15 @@
+name: Auto publish new version 
+
+on:
+  push:
+    branches: [main]
+
+env: 
+  CARGO_TOKEN: cioJhWa5quwd0R2kRnqPMyE8F42eyq8Wxep
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto publish on version changed
+        uses: actions/cargo-auto-publish@v2
