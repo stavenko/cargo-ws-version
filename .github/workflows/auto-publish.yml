@@ -1,0 +1,16 @@
+name: Auto publish new version 
+
+on:
+  push:
+    branches: [main]
+
+
+jobs:
+  publish:
+    if: github.repository == 'stavenko/cargo-ws-version'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto publish on version changed
+        uses: actions/cargo-auto-publish@v2
+        env: 
+          CARGO_TOKEN: ${{ secrets.CARGO_TOKEN }}
