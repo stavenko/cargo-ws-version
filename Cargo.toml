@@ -8,6 +8,6 @@ description = "Cargo plugin, which helps to update versions of changed cargo pac
 
 [dependencies]
 clap = { version = "3.0.14", features = ["derive"] }
-git2 = { verstion= "0.13" }
-serde = { verstion = "1.0.136", features = ["derive"]}
+git2 = { version= "0.13" }
+serde = { version = "1.0.136", features = ["derive"]}
 toml = "0.5"
