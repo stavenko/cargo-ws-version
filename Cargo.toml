@@ -1,9 +1,10 @@
 [package]
 name = "cargo-ws-version"
-version = "1.0.5"
+version = "1.0.6"
 edition = "2021"
 license = "MIT"
 description = "Cargo plugin, which helps to update versions of changed cargo packages in workspace and update all dependencies in packages"
+repository="https://github.com/stavenko/cargo-ws-version"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
