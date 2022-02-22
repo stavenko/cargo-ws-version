@@ -1,6 +1,6 @@
 use std::{
   collections::{HashMap, HashSet},
-  io::Read,
+  io::{Read, Write},
   path::PathBuf,
 };
 
@@ -153,7 +153,6 @@ fn main() {
   let mut packages_in_workspace = get_total_packages(&options);
   let reference = packages_in_workspace.clone();
   let file_set = get_changed_files_in_repo(&options);
-  println!("file_set: {:#?}", file_set);
 
   for p in packages_in_workspace.iter_mut() {
     if is_changed(p, &file_set, &reference) || options.replace_all {
@@ -165,16 +164,19 @@ fn main() {
 
   let ws_root = PathBuf::from(options.workspace_path);
   for p in packages_in_workspace {
-    // println!("new p {} version {}", p.package.name, p.package.version);
-    //for (n, d) in &p.dependencies {
-    // println!("\tnew pd {} version {:?}", n, d.version);
     let serialized = toml::to_string_pretty(&p).unwrap();
-    let where_to_write = ws_root.join(p.package_root);
-    println!(
-      "{}:\n{}\n=====",
-      where_to_write.to_str().unwrap_or(""),
-      serialized
-    );
-    //}
+    let where_to_write = ws_root
+      .join(p.package_root)
+      .join("Cargo.toml")
+      ;
+    
+    let mut file = std::fs::OpenOptions::new()
+      .write(true)
+      .create(true)
+      .truncate(true)
+      .open(where_to_write)
+      .unwrap();
+
+    file.write_all(serialized.as_bytes()).unwrap();
   }
 }
