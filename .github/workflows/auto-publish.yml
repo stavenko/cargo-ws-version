@@ -9,6 +9,7 @@ jobs:
   publish:
     if: github.repository == 'stavenko/cargo-ws-version'
     runs-on: ubuntu-latest
+    environment: cargo
     steps:
       - name: Setup | Rust
         uses: ATiltedTree/setup-rust@v1
