@@ -20,6 +20,17 @@ jobs:
         with:
           fetch-depth: 2
       - name: Auto publish on version changed
-        uses: seunlanlege/cargo-auto-publish@2 
+        run: |
+          cargo install tomlq
+          git checkout HEAD~1;
+          export PREV=`tomlq "package.version" -f Cargo.toml`;
+          git checkout main;
+          export NEXT=`tomlq "package.version" -f Cargo.toml`;
+          echo "Version prev $PREV, version next $NEXT";
+          if [ "$NEXT" != "$PREV" ]
+          then
+            echo "publish package version changed";
+            cargo publish --token $CARGO_TOKEN
+          fi
         env: 
           CARGO_TOKEN: ${{ secrets.CARGO_TOKEN }}
