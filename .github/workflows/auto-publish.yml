@@ -17,6 +17,7 @@ jobs:
           components: clippy
       - name: Setup | Checkout sources
         uses: actions/checkout@v2
+        fetch-depth: 2
       - name: Auto publish on version changed
         run: |
           cargo install tomlq
