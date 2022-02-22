@@ -1,6 +1,6 @@
 [package]
 name = "cargo-ws-version"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2021"
 description = "Cargo plugin, which helps to update versions of changed cargo packages in workspace and update all dependencies in packages"
 
